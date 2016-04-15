@@ -66,18 +66,25 @@
     AVPacket *_packet, _currentPacket;
     AVPicture picture;
     AVCodecContext *_audioCodecContext;
+
+    
     
     struct SwsContext *img_convert_ctx;
 
     int16_t *_audioBuffer;
-
+    
+    
+//    UIImage *currentImage;
+//    NSMutableArray *audioPacketQueue;
+    
     NSLock *audioPacketQueueLock;
     
     int audiopacktQueueSize;
     int videoStream;
     int audioStream;
     
-
+//    int sourceWidth, sourceHeight;
+//    int outputWidth, outputHeight;
     
     double duration;
     double currentTime;
@@ -103,7 +110,12 @@
 
 @property (nonatomic, assign)  AVCodecContext *audioCodecContext;
 
+//@property (nonatomic, assign) AudioQueueBufferRef emptyAudioBuffer;
+//@property (nonatomic, assign) AVStream *_audioStream;
+//@property (nonatomic, assign) int audioPacketQueueSize;
 
+
+/* Initialize with movie at moviePath. Output dimensions are set to source dimensions. */
 -(id)initWithVideo:(NSString *)moviePath usesTcp:(BOOL)usesTcp;
 
 /* Read the next frame from the video stream. Returns false if no frame read (video over). */
@@ -111,6 +123,11 @@
 
 /* Seek to closest keyframe near specified time */
 -(void)seekTime:(double)seconds;
+
+//-(void)closeAudio;
+
+- (AVPacket*)readPacket;
+
 
 
 @end

@@ -175,7 +175,7 @@ initError:
     while (!frameFinished && av_read_frame(pFormatCtx, &packet) >=0 ) {
         // Is this a packet from the video stream?
 
-        NSLog(@"stepFrame :%i ",   packet.stream_index);
+//        NSLog(@"stepFrame :%i ",   packet.stream_index);
         if(packet.stream_index==videoStream) {
             // Decode video frame
             avcodec_decode_video2(pCodecCtx, pFrame, &frameFinished, &packet);
