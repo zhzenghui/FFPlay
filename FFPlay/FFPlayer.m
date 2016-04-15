@@ -129,7 +129,6 @@
     }
 
     pFrame = avcodec_alloc_frame();
-//    pFrame =  avcodec_alloc_context3(pCodec);
     
     _outputWidth = pCodecCtx->width;
     _outputHeight = pCodecCtx->height;
@@ -182,24 +181,6 @@ initError:
             avcodec_decode_video2(pCodecCtx, pFrame, &frameFinished, &packet);
         }
         
-//        if (packet.stream_index==audioStream) {
-//            // NSLog(@"audio stream");
-//            [audioPacketQueueLock lock];
-//            
-//            audioPacketQueueSize += packet.size;
-//            [audioPacketQueue addObject:[NSMutableData dataWithBytes:&packet length:sizeof(packet)]];
-//            
-//            [audioPacketQueueLock unlock];
-//            
-//            if (!primed) {
-//                primed=YES;
-//                [_audioController _startAudio];
-//            }
-//            
-//            if (emptyAudioBuffer) {
-//                [_audioController enqueueBuffer:emptyAudioBuffer];
-//            }
-//        }
     }
     
     return frameFinished!=0;
@@ -235,12 +216,6 @@ initError:
 }
 
 
-- (AVPacket*)readPacket {
-    if ( _currentPacket.size > 0 || _inBuffer ) return &_currentPacket;
-    
-
-    return &_currentPacket;
-}
 
 
 
