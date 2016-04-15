@@ -1,0 +1,39 @@
+ffmpeg  的载入流程（只包含视频读取数据）
+
+
+网络数据流 	pFormatCtx
+流数据编码数据  	pCodecCtx
+数据的编码格式数据  pCodec
+		pFrame
+
+1.  初始化  
+	avcodec_register_all();
+	av_register_all();
+	avformat_network_init();
+2. 设置协议
+	av_dict_set(&opts, "rtsp_transport", "tcp", 0);
+
+3. 使用avformat 开始网络访问
+	avformat_open_input(&pFormatCtx, [moviePath UTF8String], NULL, &opts)
+
+4. 读取流数据编码解码信息
+	avformat_find_stream_info(pFormatCtx, NULL)
+
+5. 解码数据，pCodecCtx再次承载解码后的数据
+	avcodec_open2(pCodecCtx, pCodec, NULL)
+
+6. 初始化帧对象，用于保存单帧的视频和音频数据
+	    pFrame = avcodec_alloc_frame();
+
+7.  formatctx中读取packet数据
+	av_read_frame(pFormatCtx, &packet)
+
+
+8。 播放的原理是通过计时器，以30/1秒的数据来的读取帧数据
+	avcodec_decode_video2(pCodecCtx, pFrame, &frameFinished, &packet);
+
+
+疑问： 	pframe 的赋值 并不明确，看不太懂。
+	推动时间轴不太明白
+
+
