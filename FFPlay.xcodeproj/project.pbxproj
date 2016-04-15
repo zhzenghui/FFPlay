@@ -182,7 +182,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		14B7C7BC1CBC850A00B85783 = {
+		14499EFA1CC0D7FB00D68998 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
 				14B7C8661CBC8F9900B85783 /* CoreGraphics.framework */,
@@ -194,6 +194,14 @@
 				14B7C85A1CBC8F6600B85783 /* CoreVideo.framework */,
 				14B7C8581CBC8F5C00B85783 /* AudioToolbox.framework */,
 				14B7C8561CBC8F4A00B85783 /* libiconv.tbd */,
+			);
+			name = Framework;
+			sourceTree = "<group>";
+		};
+		14B7C7BC1CBC850A00B85783 = {
+			isa = PBXGroup;
+			children = (
+				14499EFA1CC0D7FB00D68998 /* Framework */,
 				14B7C7C71CBC850A00B85783 /* FFPlay */,
 				14B7C7C61CBC850A00B85783 /* Products */,
 			);
