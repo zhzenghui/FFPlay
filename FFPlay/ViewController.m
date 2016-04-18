@@ -90,7 +90,7 @@
     }
 //    [label setText:[NSString stringWithFormat:@"%.0f",lastFrameTime]];
     
-    NSLog(@"%.0f", lastFrameTime);
+//    NSLog(@"%.0f", lastFrameTime);
 }
 
 

@@ -4,7 +4,7 @@ ffmpeg  的载入流程（只包含视频读取数据）
 网络数据流 	pFormatCtx
 流数据编码数据  	pCodecCtx
 数据的编码格式数据  pCodec
-		pFrame
+单帧的视频和音频数据	pFrame
 
 1.  初始化  
 	avcodec_register_all();
@@ -35,5 +35,25 @@ ffmpeg  的载入流程（只包含视频读取数据）
 
 疑问： 	pframe 的赋值 并不明确，看不太懂。
 	推动时间轴不太明白
+
+
+跳转时间播放
+avformat_seek_file(pFormatCtx, videoStream, targetFrame, targetFrame, targetFrame, AVSEEK_FLAG_FRAME);
+// Reset the internal decoder state / flush internal buffers. Should be called
+avcodec_flush_buffers(pCodecCtx);
+
+
+视频帧 转换 AVPicture 
+    sws_scale(img_convert_ctx,
+              pFrame->data,
+              pFrame->linesize,
+              0,
+              pCodecCtx->height,
+              picture.data,
+              picture.linesize);
+
+
+AVPicture pict.linesize[0] -》 CGImageRef 
+
 
 

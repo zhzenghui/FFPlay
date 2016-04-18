@@ -61,7 +61,6 @@
 //
 //
     AVPacket packet;
-
     AVFrame *pFrame;
     AVPacket *_packet, _currentPacket;
     AVPicture picture;
@@ -110,9 +109,11 @@
 
 @property (nonatomic, assign)  AVCodecContext *audioCodecContext;
 
-//@property (nonatomic, assign) AudioQueueBufferRef emptyAudioBuffer;
+
+
+@property (nonatomic, assign) AudioQueueBufferRef emptyAudioBuffer;
 //@property (nonatomic, assign) AVStream *_audioStream;
-//@property (nonatomic, assign) int audioPacketQueueSize;
+@property (nonatomic, assign) int audioPacketQueueSize;
 
 
 /* Initialize with movie at moviePath. Output dimensions are set to source dimensions. */
@@ -124,7 +125,6 @@
 /* Seek to closest keyframe near specified time */
 -(void)seekTime:(double)seconds;
 
-//-(void)closeAudio;
 
 - (AVPacket*)readPacket;
 

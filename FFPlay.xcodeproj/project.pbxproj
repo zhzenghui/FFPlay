@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		142F85A21CC475790044EFDB /* ffmpeg载入流程说明.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142F85A11CC475790044EFDB /* ffmpeg载入流程说明.txt */; };
+		142F85A51CC47EB80044EFDB /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 142F85A41CC47EB80044EFDB /* AudioPlayer.m */; };
 		14B7C7CA1CBC850A00B85783 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B7C7C91CBC850A00B85783 /* main.m */; };
 		14B7C7CD1CBC850A00B85783 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B7C7CC1CBC850A00B85783 /* AppDelegate.m */; };
 		14B7C7D01CBC850A00B85783 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B7C7CF1CBC850A00B85783 /* ViewController.m */; };
@@ -33,6 +35,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		142F85A11CC475790044EFDB /* ffmpeg载入流程说明.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ffmpeg载入流程说明.txt"; sourceTree = "<group>"; };
+		142F85A31CC47EB80044EFDB /* AudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayer.h; sourceTree = "<group>"; };
+		142F85A41CC47EB80044EFDB /* AudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioPlayer.m; sourceTree = "<group>"; };
 		14B7C7C51CBC850A00B85783 /* FFPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FFPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B7C7C91CBC850A00B85783 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		14B7C7CB1CBC850A00B85783 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -182,6 +187,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		142F85A01CC475790044EFDB /* Doc */ = {
+			isa = PBXGroup;
+			children = (
+				142F85A11CC475790044EFDB /* ffmpeg载入流程说明.txt */,
+			);
+			path = Doc;
+			sourceTree = "<group>";
+		};
 		14499EFA1CC0D7FB00D68998 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,8 +214,10 @@
 		14B7C7BC1CBC850A00B85783 = {
 			isa = PBXGroup;
 			children = (
-				14499EFA1CC0D7FB00D68998 /* Framework */,
+				142F85A01CC475790044EFDB /* Doc */,
 				14B7C7C71CBC850A00B85783 /* FFPlay */,
+				14B7C7DF1CBC853700B85783 /* FFMpegiOS */,
+				14499EFA1CC0D7FB00D68998 /* Framework */,
 				14B7C7C61CBC850A00B85783 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -218,13 +233,14 @@
 		14B7C7C71CBC850A00B85783 /* FFPlay */ = {
 			isa = PBXGroup;
 			children = (
-				14B7C7DF1CBC853700B85783 /* FFMpegiOS */,
 				14B7C7CB1CBC850A00B85783 /* AppDelegate.h */,
 				14B7C7CC1CBC850A00B85783 /* AppDelegate.m */,
 				14B7C7CE1CBC850A00B85783 /* ViewController.h */,
 				14B7C7CF1CBC850A00B85783 /* ViewController.m */,
 				14B7C8531CBC85F800B85783 /* FFPlayer.h */,
 				14B7C8541CBC85F800B85783 /* FFPlayer.m */,
+				142F85A31CC47EB80044EFDB /* AudioPlayer.h */,
+				142F85A41CC47EB80044EFDB /* AudioPlayer.m */,
 				14B7C7D11CBC850A00B85783 /* Main.storyboard */,
 				14B7C7D41CBC850A00B85783 /* Assets.xcassets */,
 				14B7C7D61CBC850A00B85783 /* LaunchScreen.storyboard */,
@@ -248,7 +264,8 @@
 				14B7C7E01CBC853700B85783 /* include */,
 				14B7C8441CBC853700B85783 /* lib */,
 			);
-			path = FFMpegiOS;
+			name = FFMpegiOS;
+			path = FFPlay/FFMpegiOS;
 			sourceTree = "<group>";
 		};
 		14B7C7E01CBC853700B85783 /* include */ = {
@@ -481,6 +498,7 @@
 				14B7C7D81CBC850A00B85783 /* LaunchScreen.storyboard in Resources */,
 				14B7C7D51CBC850A00B85783 /* Assets.xcassets in Resources */,
 				14B7C7D31CBC850A00B85783 /* Main.storyboard in Resources */,
+				142F85A21CC475790044EFDB /* ffmpeg载入流程说明.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +511,7 @@
 			files = (
 				14B7C7D01CBC850A00B85783 /* ViewController.m in Sources */,
 				14B7C7CD1CBC850A00B85783 /* AppDelegate.m in Sources */,
+				142F85A51CC47EB80044EFDB /* AudioPlayer.m in Sources */,
 				14B7C8551CBC85F800B85783 /* FFPlayer.m in Sources */,
 				14B7C7CA1CBC850A00B85783 /* main.m in Sources */,
 			);
@@ -606,6 +625,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/FFPlay/FFMpegiOS/include/**";
 				INFOPLIST_FILE = FFPlay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -627,6 +647,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/FFPlay/FFMpegiOS/include/**";
 				INFOPLIST_FILE = FFPlay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;

@@ -238,9 +238,6 @@ initError:
                                        kCGRenderingIntentDefault);
     CGColorSpaceRelease(colorSpace);
     UIImage *image = [UIImage imageWithCGImage:cgImage];
-    // 1、创建输入图像，CIImage类型，这里使用一个网上图片。
-    CIImage *inputImage = [CIImage imageWithCGImage:cgImage];
-    
     
     CGImageRelease(cgImage);
     CGDataProviderRelease(provider);
