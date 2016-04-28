@@ -93,7 +93,7 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ,
 }
 
 - (BOOL)createAudioQueue {
-    state_  = AUDIO_STATE_READY;
+    state_ = AUDIO_STATE_READY;
     finished_ = NO;
     
     if (decodeLock_) {
@@ -106,13 +106,11 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ,
     audioStreamBasicDesc_.mFormatID = -1;
     audioStreamBasicDesc_.mSampleRate = _audioCodecContext->sample_rate;
     
-//    采样帧的数率
     if (audioStreamBasicDesc_.mSampleRate < 1) {
         audioStreamBasicDesc_.mSampleRate = 32000;
     }
     
-//    音频流的格式信息
-    audioStreamBasicDesc_.mFormatFlags =  0;
+    audioStreamBasicDesc_.mFormatFlags = 0;
     
     switch (_audioCodecContext->codec_id) {
         case CODEC_ID_MP3:
@@ -124,15 +122,15 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ,
         {
             audioStreamBasicDesc_.mFormatID = kAudioFormatMPEG4AAC;
             audioStreamBasicDesc_.mFormatFlags = kMPEG4Object_AAC_LC;
-            audioStreamBasicDesc_.mSampleRate  = _audioCodecContext->sample_rate;
+            audioStreamBasicDesc_.mSampleRate = _audioCodecContext->sample_rate;
             audioStreamBasicDesc_.mChannelsPerFrame = _audioCodecContext->channels;
-            audioStreamBasicDesc_.mBitsPerChannel   = 0;
-            audioStreamBasicDesc_.mFramesPerPacket = _audioCodecContext->frame_size;
-            audioStreamBasicDesc_.mBytesPerPacket  = 0;
-            audioStreamBasicDesc_.mBytesPerFrame   = _audioCodecContext->frame_bits;
-            audioStreamBasicDesc_.mReserved         = 0;
+            audioStreamBasicDesc_.mBitsPerChannel = 0;
+            audioStreamBasicDesc_.mFramesPerPacket =_audioCodecContext->frame_size;
+            audioStreamBasicDesc_.mBytesPerPacket = 0;
+            audioStreamBasicDesc_.mBytesPerFrame = _audioCodecContext->frame_bits;
+            audioStreamBasicDesc_.mReserved = 0;
             NSLog(@"audio format %s (%d) is  supported",  _audioCodecContext->codec_descriptor->name, _audioCodecContext->codec_id);
-
+            
             break;
         }
         case CODEC_ID_AC3:
@@ -143,57 +141,55 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ,
         case CODEC_ID_PCM_MULAW:
         {
             audioStreamBasicDesc_.mFormatID = kAudioFormatULaw;
-            audioStreamBasicDesc_.mSampleRate = 80000.0;
-            audioStreamBasicDesc_.mFormatFlags = 90;
+            audioStreamBasicDesc_.mSampleRate = 8000.0;
+            audioStreamBasicDesc_.mFormatFlags = 0;
             audioStreamBasicDesc_.mFramesPerPacket = 1;
             audioStreamBasicDesc_.mChannelsPerFrame = 1;
             audioStreamBasicDesc_.mBitsPerChannel = 8;
-            audioStreamBasicDesc_.mBytesPerFrame   = 1;
+            audioStreamBasicDesc_.mBytesPerPacket = 1;
             audioStreamBasicDesc_.mBytesPerFrame = 1;
+            NSLog(@"found audio codec mulaw");
             break;
         }
-            
         default:
         {
-            NSLog(@"Error: audio format '%s' (%d) is not supported", _audioCodecContext->codec_descriptor->name,
-                  _audioCodecContext->codec_id );
-                  audioStreamBasicDesc_.mFormatID = kAudioFormatAC3;
+            NSLog(@"Error: audio format '%s' (%d) is not supported", _audioCodecContext->codec_descriptor->name, _audioCodecContext->codec_id);
+            audioStreamBasicDesc_.mFormatID = kAudioFormatAC3;
             break;
         }
     }
     
+    //    if (audioStreamBasicDesc_.mFormatID != kAudioFormatULaw) {
+    //        audioStreamBasicDesc_.mBytesPerPacket = 0;
+    //        audioStreamBasicDesc_.mFramesPerPacket = _audioCodecContext->frame_size;
+    //        audioStreamBasicDesc_.mBytesPerFrame = 0;
+    //        audioStreamBasicDesc_.mChannelsPerFrame = _audioCodecContext->channels;
+    //        audioStreamBasicDesc_.mBitsPerChannel = 0;
+    //    }
     
     OSStatus status = AudioQueueNewOutput(&audioStreamBasicDesc_, audioQueueOutputCallback,
-                                         (__bridge void*)self, NULL, NULL, 0, &audioQueue_);
-    
-
-    
+                                          (__bridge void*)self, NULL, NULL, 0, &audioQueue_);
     if (status != noErr) {
-        NSLog(@"could not carete new output");
+        NSLog(@"Could not create new output.");
         return NO;
     }
     
-    status = AudioQueueAddPropertyListener(audioQueue_, kAudioQueueProperty_IsRunning,
-                                           audioQueueIsRunningCallback,
-                                           (__bridge void*)self);
+    status = AudioQueueAddPropertyListener(audioQueue_, kAudioQueueProperty_IsRunning, audioQueueIsRunningCallback, (__bridge void*)self);
     if (status != noErr) {
-        NSLog(@"Could not add propery listener. " );
+        NSLog(@"Could not add propery listener. (kAudioQueueProperty_IsRunning)");
         return NO;
     }
     
-    for (NSInteger i =0 ; i< kNumAQBufs; ++i) {
-        
-        status = AudioQueueAllocateBufferWithPacketDescriptions(
-                                                                audioQueue_,
-                                                                audioStreamBasicDesc_.mSampleRate * kAudioBufferSeconds,
-                                                                _audioCodecContext->sample_rate * kAudioBufferSeconds/ (_audioCodecContext->frame_size + 1), &audioQueueBuffer_[i]
-                                                                );
+    for (NSInteger i = 0; i < kNumAQBufs; ++i) {
+        status = AudioQueueAllocateBufferWithPacketDescriptions(audioQueue_,
+                                                                audioStreamBasicDesc_.mSampleRate * kAudioBufferSeconds / 8,
+                                                                _audioCodecContext->sample_rate * kAudioBufferSeconds / (_audioCodecContext->frame_size + 1),
+                                                                &audioQueueBuffer_[i]);
         if (status != noErr) {
-            NSLog(@"cluld not allocate buffer. ");
+            NSLog(@"Could not allocate buffer.");
             return NO;
         }
     }
-    
     
     return YES;
     

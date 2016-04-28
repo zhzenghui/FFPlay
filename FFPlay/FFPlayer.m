@@ -7,7 +7,12 @@
 //
 
 #import "FFPlayer.h"
+#import "AudioPlayer.h"
 
+
+#ifndef AVCODEC_MAX_AUDIO_FRAME_SIZE
+# define AVCODEC_MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
+#endif
 @interface FFPlayer (private)
 
 
@@ -19,6 +24,10 @@
 
 
 @interface FFPlayer ()
+
+@property (nonatomic, retain) AudioPlayer *audioController;
+
+
 @end
 
 
@@ -96,6 +105,8 @@
     }
     
     videoStream = -1;
+    audioStream=-1;
+
     
     for (int  i =0; i<pFormatCtx->nb_streams; i++) {
         
@@ -103,10 +114,17 @@
             NSLog(@"found video stream");
             videoStream =i;
         }
+        
+        if (pFormatCtx->streams[i]->codec->codec_type == AVMEDIA_TYPE_AUDIO) {
+            
+            audioStream = i;
+            NSLog(@"found audio stream ");
+        }
     }
     
     
-    if (videoStream == -1) {
+    
+    if (videoStream == -1 && audioStream == -1) {
         goto initError;
     }
     
@@ -128,6 +146,13 @@
         goto initError;
     }
 
+    if (audioStream > -1) {
+        NSLog(@"set up audio decoder");
+        [self setupAudioDecoder];
+        
+    
+    }
+    
     pFrame = avcodec_alloc_frame();
     
     _outputWidth = pCodecCtx->width;
@@ -174,15 +199,32 @@ initError:
     
     while (!frameFinished && av_read_frame(pFormatCtx, &packet) >=0 ) {
         // Is this a packet from the video stream?
-
-//        NSLog(@"stepFrame :%i ",   packet.stream_index);
+        
+        NSLog(@"stepFrame :%i ",   packet.stream_index);
         if(packet.stream_index==videoStream) {
             // Decode video frame
             avcodec_decode_video2(pCodecCtx, pFrame, &frameFinished, &packet);
         }
         
+        if (packet.stream_index==audioStream) {
+            // NSLog(@"audio stream");
+            [audioPacketQueueLock lock];
+            
+            audioPacketQueueSize += packet.size;
+            [audioPacketQueue addObject:[NSMutableData dataWithBytes:&packet length:sizeof(packet)]];
+            
+            [audioPacketQueueLock unlock];
+            
+            if (!primed) {
+                primed=YES;
+                [_audioController _startAudio];
+            }
+            
+            if (_emptyAudioBuffer) {
+                [_audioController enqueueBuffer:_emptyAudioBuffer];
+            }
+        }
     }
-    
     return frameFinished!=0;
 }
 
@@ -247,6 +289,122 @@ initError:
     
     return image;
 }
+
+#pragma mark - audio 
+
+- (void)setupAudioDecoder {
+    
+    if (audioStream > 0) {
+        _audioBufferSize = AVCODEC_MAX_AUDIO_FRAME_SIZE;
+        _audioBuffer = av_malloc(_audioBufferSize);
+        _inBuffer = NO;
+        
+        _audioCodecContext = pFormatCtx->streams[audioStream]->codec;
+        _audioStream        = pFormatCtx->streams[audioStream];
+        
+        AVCodec *codec = avcodec_find_decoder(_audioCodecContext->codec_id);
+        
+        if (codec == NULL) {
+            NSLog(@"not found audio codec.");
+            return;
+        }
+        
+        if (codec == NULL) {
+            NSLog(@"not found audio codec");
+        }
+        
+        if (avcodec_open2(_audioCodecContext, codec, NULL) < 0) {
+            
+            NSLog(@"could not open audio codec ");
+            return;
+        }
+        
+        if (audioPacketQueue) {
+            audioPacketQueue = nil;
+        }
+        
+        audioPacketQueue = [[NSMutableArray alloc] init];
+        
+        if (audioPacketQueueLock) {
+            audioPacketQueueLock = nil;
+        }
+        
+        audioPacketQueueLock = [[NSLock alloc] init];
+        
+        if ( _audioController) {
+            [_audioController _stopAudio];
+            _audioController = nil;
+        }
+        _audioController    = [[AudioPlayer alloc] initWithStreamer:self];
+    }
+    else {
+        pFormatCtx->streams[audioStream]->discard = AVDISCARD_ALL;
+        audioStream = -1;
+    }
+}
+
+- (void)nextPacket {
+    _inBuffer = NO;
+}
+
+- (AVPacket *)readPacket {
+    
+    if (_currentPacket.size > 0 || _inBuffer ) return &_currentPacket;
+    
+    NSMutableData *packData =[audioPacketQueue objectAtIndex:0];
+    
+    _packet = [packData mutableBytes];
+    
+    if (_packet) {
+        
+        if (_packet->dts != AV_NOPTS_VALUE) {
+            _packet->dts += av_rescale_q(0, AV_TIME_BASE_Q, _audioStream->time_base);
+        }
+        
+        if (_packet->pts != AV_NOPTS_VALUE) {
+            _packet->pts += av_rescale_q(0, AV_TIME_BASE_Q, _audioStream->time_base);
+        }
+        
+        [audioPacketQueueLock lock];
+        audioPacketQueueSize -= _packet->size;
+        
+        
+        if ([audioPacketQueue count] > 0) {
+            [audioPacketQueue removeObjectAtIndex:0];
+        }
+        [audioPacketQueueLock unlock];
+        
+        _currentPacket = *(_packet);
+    }
+    
+    return &_currentPacket;
+}
+
+- (void)closeAudio {
+    [_audioController _stopAudio];
+    primed = NO;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @end

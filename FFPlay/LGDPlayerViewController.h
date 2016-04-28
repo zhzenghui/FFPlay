@@ -17,9 +17,7 @@
 
 }
 
-@property (weak, nonatomic) IBOutlet UITextField *input;
 
-@property (weak, nonatomic) IBOutlet UITextField *output;
 
 @property (nonatomic, retain) FFPlayer *video;
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;

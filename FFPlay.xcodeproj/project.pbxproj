@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		142F85A21CC475790044EFDB /* ffmpeg载入流程说明.txt in Resources */ = {isa = PBXBuildFile; fileRef = 142F85A11CC475790044EFDB /* ffmpeg载入流程说明.txt */; };
 		142F85A51CC47EB80044EFDB /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 142F85A41CC47EB80044EFDB /* AudioPlayer.m */; };
+		149622D41CD1A498009CFB97 /* 572092f05be729164.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 149622D31CD1A498009CFB97 /* 572092f05be729164.mp4 */; };
 		14B7C7CA1CBC850A00B85783 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B7C7C91CBC850A00B85783 /* main.m */; };
 		14B7C7CD1CBC850A00B85783 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B7C7CC1CBC850A00B85783 /* AppDelegate.m */; };
 		14B7C7D01CBC850A00B85783 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B7C7CF1CBC850A00B85783 /* ViewController.m */; };
@@ -38,6 +39,7 @@
 		142F85A11CC475790044EFDB /* ffmpeg载入流程说明.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ffmpeg载入流程说明.txt"; sourceTree = "<group>"; };
 		142F85A31CC47EB80044EFDB /* AudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayer.h; sourceTree = "<group>"; };
 		142F85A41CC47EB80044EFDB /* AudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioPlayer.m; sourceTree = "<group>"; };
+		149622D31CD1A498009CFB97 /* 572092f05be729164.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 572092f05be729164.mp4; sourceTree = "<group>"; };
 		14B7C7C51CBC850A00B85783 /* FFPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FFPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B7C7C91CBC850A00B85783 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		14B7C7CB1CBC850A00B85783 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 		14B7C7C71CBC850A00B85783 /* FFPlay */ = {
 			isa = PBXGroup;
 			children = (
+				149622D31CD1A498009CFB97 /* 572092f05be729164.mp4 */,
 				14B7C7CB1CBC850A00B85783 /* AppDelegate.h */,
 				14B7C7CC1CBC850A00B85783 /* AppDelegate.m */,
 				14B7C7CE1CBC850A00B85783 /* ViewController.h */,
@@ -495,6 +498,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				149622D41CD1A498009CFB97 /* 572092f05be729164.mp4 in Resources */,
 				14B7C7D81CBC850A00B85783 /* LaunchScreen.storyboard in Resources */,
 				14B7C7D51CBC850A00B85783 /* Assets.xcassets in Resources */,
 				14B7C7D31CBC850A00B85783 /* Main.storyboard in Resources */,

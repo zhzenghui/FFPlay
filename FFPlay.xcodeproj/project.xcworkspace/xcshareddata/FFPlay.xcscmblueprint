@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3B4AC509D91404531D9C9777857473B523BFAB8E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "625F25A5CC32F50D14D2E17852AEDDD7BBFE16B8" : 0,
+    "3B4AC509D91404531D9C9777857473B523BFAB8E" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E2783553-F38D-4F42-8297-40F4B05864B1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "625F25A5CC32F50D14D2E17852AEDDD7BBFE16B8" : "DFURTSPPlayer\/",
+    "3B4AC509D91404531D9C9777857473B523BFAB8E" : "FFPlay\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FFPlay",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FFPlay.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/zhzenghui\/FFPlay.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3B4AC509D91404531D9C9777857473B523BFAB8E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/zhzenghui\/DFURTSPPlayer.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "625F25A5CC32F50D14D2E17852AEDDD7BBFE16B8"
+    }
+  ]
+}

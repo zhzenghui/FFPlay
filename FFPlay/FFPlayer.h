@@ -66,18 +66,21 @@
     AVPicture picture;
     AVCodecContext *_audioCodecContext;
 
-    
+    AVStream *_audioStream;
+
     
     struct SwsContext *img_convert_ctx;
 
     int16_t *_audioBuffer;
     
-    
+    NSUInteger _audioBufferSize;
+
 //    UIImage *currentImage;
-//    NSMutableArray *audioPacketQueue;
+    NSMutableArray *audioPacketQueue;
     
     NSLock *audioPacketQueueLock;
-    
+    int audioPacketQueueSize;
+
     int audiopacktQueueSize;
     int videoStream;
     int audioStream;
